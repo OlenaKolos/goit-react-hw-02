@@ -1,0 +1,21 @@
+.table {
+    width: 700px;
+    margin: 0 auto 40px;
+    border: 2px solid #000;
+    border-collapse: collapse;
+}
+
+.tableHead {
+    background-color: #2a2a2a;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+
+.headTh {
+    border: 2px solid #000;
+    border-bottom: 0;
+    padding: 8px;
+
+}
