@@ -1,24 +1,68 @@
-import Profile from "./components/Profile/Profile";
-import FriendList from "./components/FriendList/FriendList";
-import TransactionHistory from "./components/TransactionHistory/TransactionHistory";
-import userData from "./components/Data/userData.json";
-import friends from "./components/Data/friends.json";
-import transactions from "./components/Data/transactions.json";
-
+import { useState, useEffect } from "react";
 import "./App.css";
+import Description from "./components/Description/Decscriptiom";
+import Options from "./components/Options/Options";
+import Feedback from "./components/Feedback/Feedback";
+import Notification from "./components/Notification/Notification";
 
 function App() {
+  const [feedbackStates, setFeedbackStates] = useState(() => {
+    const savedFeedback = window.localStorage.getItem("feedback-states");
+    if (savedFeedback !== null) {
+      return JSON.parse(savedFeedback);
+    }
+    return {
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    };
+  });
+
+  const totalFeedback =
+    feedbackStates.good + feedbackStates.neutral + feedbackStates.bad;
+  const positiveFeedback =
+    totalFeedback > 0
+      ? Math.round(
+          ((feedbackStates.good + feedbackStates.neutral) / totalFeedback) * 100
+        )
+      : 0;
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      "feedback-states",
+      JSON.stringify(feedbackStates)
+    );
+  }, [feedbackStates]);
+
+  const updateFeedback = (feedbackType) => {
+    setFeedbackStates({
+      ...feedbackStates,
+      [feedbackType]: feedbackStates[feedbackType] + 1,
+    });
+  };
+
+  const resetFeedback = () => {
+    setFeedbackStates({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
+  };
+
   return (
     <>
-      <Profile
-        name={userData.username}
-        tag={userData.tag}
-        location={userData.location}
-        image={userData.avatar}
-        stats={userData.stats}
+      <Description />
+      <Options
+        updateFeedback={updateFeedback}
+        resetFeedback={resetFeedback}
+        totalFeedback={totalFeedback}
       />
-      <FriendList friends={friends} />
-      <TransactionHistory items={transactions} />
+      <Feedback
+        states={feedbackStates}
+        totalFeedback={totalFeedback}
+        positiveFeedback={positiveFeedback}
+      />
+      {!totalFeedback && <Notification />}
     </>
   );
 }
