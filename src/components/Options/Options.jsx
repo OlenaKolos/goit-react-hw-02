@@ -1,4 +1,4 @@
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import css from "./Options.module.css";
 
 const Options = ({ updateFeedback, totalFeedback = 0, resetFeedback }) => {
@@ -22,10 +22,10 @@ const Options = ({ updateFeedback, totalFeedback = 0, resetFeedback }) => {
   );
 };
 
-// Options.propTypes = {
-//   totalFeedback: PropTypes.number.isRequired,
-//   updateFeedback: PropTypes.func.isRequired,
-//   resetFeedback: PropTypes.func.isRequired,
-// };
+Options.propTypes = {
+  totalFeedback: PropTypes.number.isRequired,
+  updateFeedback: PropTypes.func.isRequired,
+  resetFeedback: PropTypes.func.isRequired,
+};
 
 export default Options;

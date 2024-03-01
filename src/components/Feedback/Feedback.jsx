@@ -1,4 +1,4 @@
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import css from "./Feedback.module.css";
 
 const Feedback = ({
@@ -21,10 +21,10 @@ const Feedback = ({
   );
 };
 
-// Feedback.propTypes = {
-//   states: PropTypes.object,
-//   totalFeedback: PropTypes.number.isRequired,
-//   positiveFeedback: PropTypes.number.isRequired,
-// };
+Feedback.propTypes = {
+  states: PropTypes.object,
+  totalFeedback: PropTypes.number.isRequired,
+  positiveFeedback: PropTypes.number.isRequired,
+};
 
 export default Feedback;
